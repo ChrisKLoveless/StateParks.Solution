@@ -21,16 +21,16 @@ namespace StateParks.Controllers
 
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<State>>> Get(string title, int? userId)
+    public async Task<ActionResult<IEnumerable<State>>> Get(string name, int? stateId)
     {
       IQueryable<State> query = _db.States.AsQueryable();
-      if (title != null)
+      if (stateId != null)
       {
-        query = query.Where(th => th.Title == title);
+        query = query.Where(st => st.Name == name);
       }
-      if (userId != null)
+      if (stateId != null)
       {
-        query = query.Where(th => th.UsersId == userId);
+        query = query.Where(st => st.StateId == stateId);
       }
       return await query.ToListAsync();
     }

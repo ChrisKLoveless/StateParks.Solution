@@ -21,16 +21,16 @@ namespace ParkParks.Controllers
 
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Park>>> Get(string title, int? userId)
+    public async Task<ActionResult<IEnumerable<Park>>> Get(string name, int? parkId)
     {
       IQueryable<Park> query = _db.Parks.AsQueryable();
-      if (title != null)
+      if (name != null)
       {
-        query = query.Where(th => th.Title == title);
+        query = query.Where(p => p.Name == name);
       }
-      if (userId != null)
+      if (parkId != null)
       {
-        query = query.Where(th => th.UsersId == userId);
+        query = query.Where(p => p.ParkId == parkId);
       }
       return await query.ToListAsync();
     }

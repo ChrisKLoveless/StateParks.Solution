@@ -5,7 +5,7 @@ namespace StateParks.Models
   public class StateParksContext : DbContext
   {
     public DbSet<Park> Parks { get; set; }
-    public DbSet<State> State { get; set; }
+    public DbSet<State> States { get; set; }
 
     public StateParksContext(DbContextOptions<StateParksContext> options) : base(options)
     {
