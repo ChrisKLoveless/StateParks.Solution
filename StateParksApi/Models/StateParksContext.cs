@@ -17,7 +17,7 @@ namespace StateParks.Models
       .HasData(
         new State { StateId = 1, Name = "Oregon" },
         new State { StateId = 2, Name = "Washington" },
-        new State { StateId = 3, Name = "California" } 
+        new State { StateId = 3, Name = "California" }
       );
       builder.Entity<Park>()
       .HasData(

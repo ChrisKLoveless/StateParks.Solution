@@ -6,7 +6,7 @@
 
 ## Description
 #### Epicodus Week 12 Code Review
-This independent project demonstrates proficiency with building and documenting a Web API, using JSON Web Token Authentication. The user can create a jwt bearer token in order to access the api endpoints. Jwt are used to authenticate users and secure api data. The project enables CORS in order to allow for an api call from a client-side JavaScript application. 
+This independent project demonstrates proficiency with building and documenting a Web API, using JSON Web Token Authentication. The user can create a jwt bearer token in order to access the api endpoints. Jwt are used to authenticate users and secure api data. The project also enables CORS with default policies in order to allow for an api call from a client-side JavaScript application. 
 
 ## Technologies Used
 
