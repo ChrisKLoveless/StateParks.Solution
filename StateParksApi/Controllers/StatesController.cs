@@ -19,7 +19,6 @@ namespace StateParks.Controllers
       _db = db;
     }
 
-
     [HttpGet]
     public async Task<ActionResult<IEnumerable<State>>> Get(string name, int? stateId)
     {
@@ -33,6 +32,76 @@ namespace StateParks.Controllers
         query = query.Where(st => st.StateId == stateId);
       }
       return await query.ToListAsync();
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<State>> GetState(int id)
+    {
+      State state = await _db.States.FindAsync(id);
+
+      if (state == null)
+      {
+        return NotFound();
+      }
+
+      return state;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<State>> Create(State state)
+    {
+      _db.States.Add(state);
+      await _db.SaveChangesAsync();
+      return CreatedAtAction(nameof(GetState), new { id = state.StateId }, state);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, State state)
+    {
+      if (id != state.StateId)
+      {
+        return BadRequest();
+      }
+
+      _db.States.Update(state);
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (!StateExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return NoContent();
+    }
+
+    private bool StateExists(int id)
+    {
+      return _db.States.Any(e => e.StateId == id);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteState(int id)
+    {
+      State state = await _db.States.FindAsync(id);
+      if (state == null)
+      {
+        return NotFound();
+      }
+
+      _db.States.Remove(state);
+      await _db.SaveChangesAsync();
+
+      return NoContent();
     }
   }
 }
