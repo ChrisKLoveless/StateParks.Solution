@@ -72,6 +72,11 @@ This independent project demonstrates proficiency with building and documenting 
       "Microsoft.AspNetCore": "Information",
       "Microsoft.Hosting.Lifetime": "Information"
     }
+  },
+  "Jwt": {
+    "Issuer": "http://localhost:5000",
+    "Audience": "http://localhost:5000",
+    "Key": "2754aa05-9e81-44a3-83da-50f819c07563"
   }
 }
 ```
@@ -103,10 +108,10 @@ Note: `{id}` is a variable, replace it with the id number of the State/Park you 
 
 #### Optional Query String Parameters for GET Requests
 
-| Parameter   | Type        |  Required    | Description |
-| ----------- | ----------- | -----------  | ----------- |
-| Name    | String      | not required | Returns State or Park with a matching name. |
-| Id        | Int      | not required | Returns State or Park with a matching id value. |
+| Parameter | Type   | Required     | Description                                     |
+| --------- | ------ | ------------ | ----------------------------------------------- |
+| Name      | String | not required | Returns State or Park with a matching name.     |
+| Id        | Int    | not required | Returns State or Park with a matching id value. |
 
 GET requests to `http://localhost:5000/api/parks/`
 
@@ -140,7 +145,7 @@ When making a POST request to `http://localhost:5000/api/states/` or `http://loc
 }
 ```
 
-When making a PUT request to `http://localhost:5000/api/states/{id}` or `http://localhost:5000/api/parks/{id}`, you need to include a **body**. Here's an example body in JSON:
+When making a PUT request to `http://localhost:5000/api/states/{id}` or `http://localhost:5000/api/parks/{id}`, you need to include a **body**. Select the raw radio button and JSON data type. Here's an example body in JSON:
 
 ```json
 {
@@ -148,6 +153,10 @@ When making a PUT request to `http://localhost:5000/api/states/{id}` or `http://
   "Name": "Montana",
 }
 ```
+
+## Cross-Origin Requests
+If you would like to enable additional CORS policies and attributes go _[here](https://learn.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-6.0)_
+
 ## Known Bugs
 
 * If any bugs are found please email a brief description to: ```chriskloveless@gmail.com```
