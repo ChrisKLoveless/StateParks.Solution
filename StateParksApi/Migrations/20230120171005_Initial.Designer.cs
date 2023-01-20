@@ -38,23 +38,23 @@ namespace StateParksApi.Migrations
 
             b.HasData(
                       new
-                  {
-                    ParkId = 1,
-                    Name = "Crater Lake",
-                    StateId = 1
-                  },
+                      {
+                        ParkId = 1,
+                        Name = "Crater Lake",
+                        StateId = 1
+                      },
                       new
-                  {
-                    ParkId = 2,
-                    Name = "Lewis and Clark",
-                    StateId = 2
-                  },
+                      {
+                        ParkId = 2,
+                        Name = "Lewis and Clark",
+                        StateId = 2
+                      },
                       new
-                  {
-                    ParkId = 3,
-                    Name = "Golden Gate",
-                    StateId = 3
-                  });
+                      {
+                        ParkId = 3,
+                        Name = "Golden Gate",
+                        StateId = 3
+                      });
           });
 
       modelBuilder.Entity("StateParks.Models.State", b =>
@@ -75,23 +75,23 @@ namespace StateParksApi.Migrations
 
             b.HasData(
                       new
-                  {
-                    StateId = 1,
-                    Name = "Oregon",
-                    ParkId = 1
-                  },
+                      {
+                        StateId = 1,
+                        Name = "Oregon",
+                        ParkId = 1
+                      },
                       new
-                  {
-                    StateId = 2,
-                    Name = "Washington",
-                    ParkId = 2
-                  },
+                      {
+                        StateId = 2,
+                        Name = "Washington",
+                        ParkId = 2
+                      },
                       new
-                  {
-                    StateId = 3,
-                    Name = "California",
-                    ParkId = 3
-                  });
+                      {
+                        StateId = 3,
+                        Name = "California",
+                        ParkId = 3
+                      });
           });
 #pragma warning restore 612, 618
     }

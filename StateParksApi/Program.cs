@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -17,7 +20,17 @@ builder.Services.AddCors(options =>
                                             "http://www.example.com");
                     });
 });
+
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<StateParksContext>(
+                dbContextOptions => dbContextOptions
+                    .UseMySql(
+                    builder.Configuration["ConnectionStrings:DefaultConnection"],
+                    ServerVersion.AutoDetect(builder.Configuration["ConnectionStrings:DefaultConnection"]
+                    )
+                )
+                );
 
 builder.Services.AddAuthentication(options =>
 {
@@ -41,17 +54,8 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-
-builder.Services.AddDbContext<StateParksContext>(
-                dbContextOptions => dbContextOptions
-                    .UseMySql(
-                    builder.Configuration["ConnectionStrings:DefaultConnection"],
-                    ServerVersion.AutoDetect(builder.Configuration["ConnectionStrings:DefaultConnection"]
-                    )
-                )
-                );
-
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
@@ -67,6 +71,44 @@ else
 {
   app.UseHttpsRedirection();
 }
+
+app.MapGet("/security/getMessage",
+() => "Hello World!").RequireAuthorization();
+
+app.MapPost("/security/createToken",
+[AllowAnonymous] async (User user) =>
+{
+  if (user.Username == "chris" && user.Password == "chris123")
+  {
+    var issuer = builder.Configuration["Jwt:Issuer"];
+    var audience = builder.Configuration["Jwt:Audience"];
+    var key = Encoding.ASCII.GetBytes
+    (builder.Configuration["Jwt:Key"]);
+    var tokenDescriptor = new SecurityTokenDescriptor
+    {
+      Subject = new ClaimsIdentity(new[]
+        {
+                new Claim("Id", Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+                new Claim(JwtRegisteredClaimNames.Email, user.EmailAddress),
+                new Claim(JwtRegisteredClaimNames.Jti,
+                Guid.NewGuid().ToString())
+            }),
+      Expires = DateTime.UtcNow.AddMinutes(5),
+      Issuer = issuer,
+      Audience = audience,
+      SigningCredentials = new SigningCredentials
+        (new SymmetricSecurityKey(key),
+        SecurityAlgorithms.HmacSha512Signature)
+    };
+    var tokenHandler = new JwtSecurityTokenHandler();
+    var token = tokenHandler.CreateToken(tokenDescriptor);
+    var jwtToken = tokenHandler.WriteToken(token);
+    var stringToken = tokenHandler.WriteToken(token);
+    return Results.Ok(stringToken);
+  }
+  return Results.Unauthorized();
+});
 
 app.UseCors(MyAllowSpecificOrigins);
 

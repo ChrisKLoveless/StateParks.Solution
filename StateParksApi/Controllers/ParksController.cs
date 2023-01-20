@@ -21,6 +21,7 @@ namespace ParkParks.Controllers
 
 
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<Park>>> Get(string name, int? parkId)
     {
       IQueryable<Park> query = _db.Parks.AsQueryable();

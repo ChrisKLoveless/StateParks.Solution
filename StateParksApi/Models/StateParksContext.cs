@@ -6,6 +6,7 @@ namespace StateParks.Models
   {
     public DbSet<Park> Parks { get; set; }
     public DbSet<State> States { get; set; }
+    public DbSet<User> Users { get; set; }
 
     public StateParksContext(DbContextOptions<StateParksContext> options) : base(options)
     {
@@ -13,6 +14,10 @@ namespace StateParks.Models
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+      builder.Entity<User>()
+      .HasData(
+        new User { UserId = 1, Username = "chris", Password = "chris123", EmailAddress = "chris_admin@email.com", Role = "Administrator" }
+      );
       builder.Entity<State>()
       .HasData(
         new State { StateId = 1, Name = "Oregon" },

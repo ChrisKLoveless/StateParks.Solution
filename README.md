@@ -41,7 +41,7 @@ This independent project demonstrates proficiency with building and documenting 
 
 ## Database Setup
 
-8.  Within the production directory ```StateParksApi```, create two new files: `appsettings.json` and `appsettings.Development.json`.
+1.  Within the production directory ```StateParksApi```, create two new files: `appsettings.json` and `appsettings.Development.json`.
 
   * Fill in `appsettings.json` with the following code: 
   * `Be sure to replace the required fields marked with ```[]``` that must contain your database name, user id, and password.`
@@ -56,7 +56,7 @@ This independent project demonstrates proficiency with building and documenting 
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-        "DefaultConnection": "Server=localhost;Port=3306;database=[DB-NAME-HERE];uid=[YOUR-USERNAME-HERE];pwd=[YOUR-PASSWORD-HERE];"
+    "DefaultConnection": "Server=localhost;Port=3306;database=[DB-NAME-HERE];uid=[YOUR-USERNAME-HERE];pwd=[YOUR-PASSWORD-HERE];"
     }
 }
 ```
@@ -81,11 +81,11 @@ This independent project demonstrates proficiency with building and documenting 
 }
 ```
 
-10. Create the database: change directory to ```StateParksApi```, and run ```dotnet ef migrations add Initial``` and then run ```dotnet ef database update``` in your shell.
+1.  Create the database: change directory to ```StateParksApi```, and run ```dotnet ef migrations add Initial``` and then run ```dotnet ef database update``` in your shell.
 
-11. While in the ```StateParksApi``` directory use ```$ dotnet build``` to build the program.
+2.  While in the ```StateParksApi``` directory use ```$ dotnet build``` to build the program.
 
-12. While in the ```StateParksApi``` directory use ```$ dotnet watch run``` to run the program in the browser with a watcher and Swagger UI. Or use ```$ dotnet run``` and test endpoints in [Postman](https://www.postman.com/).
+3.  While in the ```StateParksApi``` directory use ```$ dotnet watch run``` to run the program in the browser with a watcher and Swagger UI. Or use ```$ dotnet run``` and test endpoints in [Postman](https://www.postman.com/).
 
 ### Available Endpoints
 
@@ -105,6 +105,34 @@ DELETE http://localhost:5000/api/states/{id}
 ```
 
 Note: `{id}` is a variable, replace it with the id number of the State/Park you want to GET, PUT, or DELETE.
+
+## JSON Web Token Authentication
+The implementation of Jwt authentication is currently only attached to the GET request in the ParksController. At this time if you try to make a GET request to ```http://localhost:5000/api/parks``` you will get a 401 Unauthorized response.
+In order to further secure the api you can place the data annotation ```[Authorize]``` above the desired controller or its' individual methods. Follow these steps to test out the Jwt and make a GET request to see a list of parks.
+
+1. Open Postman and make sure the app is running with ```$ dotnet run```. Make a POST request with url: ```http://localhost:5000/security/createToken```
+
+2. You will need to include a **body** as raw JSON data. Here is an example:
+```json
+{
+    "Username": "chris",
+    "Password": "chris123",
+    "EmailAddress": "chris_admin@email.com",
+    "Role": "Administrator"
+}
+```
+3. The request should return a Jwt. Here is an example
+```
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+```
+4. Make a GET request to ```http://localhost:5000/api/parks```
+
+5. Before this request is sent, navigate to the `Authorization` tab in Postman and select Type: Bearer Token, then copy and paste the Jwt under the 'Token' field (without the quotes).
+
+
+6. You can now view a list of parks in the data base that was otherwise not authorized for users without the token.   
+
+For more information on JWT refer to this _[link](https://jwt.io/)_
 
 #### Optional Query String Parameters for GET Requests
 
@@ -159,6 +187,7 @@ If you would like to enable additional CORS policies and attributes go _[here](h
 
 ## Known Bugs
 
+* The Swagger UI is not enabled to send a request with the authorization token. To test the implementation of Jwt use Postman and follow the steps above.
 * If any bugs are found please email a brief description to: ```chriskloveless@gmail.com```
 
 ## License

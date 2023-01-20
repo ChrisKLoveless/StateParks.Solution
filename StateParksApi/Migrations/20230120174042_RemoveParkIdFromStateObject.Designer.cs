@@ -38,23 +38,23 @@ namespace StateParksApi.Migrations
 
             b.HasData(
                       new
-                  {
-                    ParkId = 1,
-                    Name = "Crater Lake",
-                    StateId = 1
-                  },
+                      {
+                        ParkId = 1,
+                        Name = "Crater Lake",
+                        StateId = 1
+                      },
                       new
-                  {
-                    ParkId = 2,
-                    Name = "Lewis and Clark",
-                    StateId = 2
-                  },
+                      {
+                        ParkId = 2,
+                        Name = "Lewis and Clark",
+                        StateId = 2
+                      },
                       new
-                  {
-                    ParkId = 3,
-                    Name = "Golden Gate",
-                    StateId = 3
-                  });
+                      {
+                        ParkId = 3,
+                        Name = "Golden Gate",
+                        StateId = 3
+                      });
           });
 
       modelBuilder.Entity("StateParks.Models.State", b =>
@@ -72,20 +72,20 @@ namespace StateParksApi.Migrations
 
             b.HasData(
                       new
-                  {
-                    StateId = 1,
-                    Name = "Oregon"
-                  },
+                      {
+                        StateId = 1,
+                        Name = "Oregon"
+                      },
                       new
-                  {
-                    StateId = 2,
-                    Name = "Washington"
-                  },
+                      {
+                        StateId = 2,
+                        Name = "Washington"
+                      },
                       new
-                  {
-                    StateId = 3,
-                    Name = "California"
-                  });
+                      {
+                        StateId = 3,
+                        Name = "California"
+                      });
           });
 #pragma warning restore 612, 618
     }
