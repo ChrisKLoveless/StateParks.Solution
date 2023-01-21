@@ -87,25 +87,6 @@ This independent project demonstrates proficiency with building and documenting 
 
 3.  While in the ```StateParksApi``` directory use ```$ dotnet watch run``` to run the program in the browser with a watcher and Swagger UI. Or use ```$ dotnet run``` and test endpoints in [Postman](https://www.postman.com/).
 
-### Available Endpoints
-
-```
-GET http://localhost:5000/api/parks/
-GET http://localhost:5000/api/parks/{id}
-POST http://localhost:5000/api/parks/
-PUT http://localhost:5000/api/parks/{id}
-DELETE http://localhost:5000/api/parks/{id}
-```
-```
-GET http://localhost:5000/api/states/
-GET http://localhost:5000/api/states/{id}
-POST http://localhost:5000/api/states/
-PUT http://localhost:5000/api/states/{id}
-DELETE http://localhost:5000/api/states/{id}
-```
-
-Note: `{id}` is a variable, replace it with the id number of the State/Park you want to GET, PUT, or DELETE.
-
 ## JSON Web Token Authentication
 The implementation of Jwt authentication is currently only attached to the GET request in the ParksController. At this time if you try to make a GET request to ```http://localhost:5000/api/parks``` you will get a 401 Unauthorized response.
 In order to further secure the api you can place the data annotation ```[Authorize]``` above the desired controller or its' individual methods. Follow these steps to test out the Jwt and make a GET request to see a list of parks.
@@ -133,6 +114,28 @@ In order to further secure the api you can place the data annotation ```[Authori
 6. You can now view a list of parks in the data base that was otherwise not authorized for users without the token.   
 
 For more information on JWT refer to this _[link](https://jwt.io/)_
+
+### Available Endpoints
+
+### Parks
+```
+GET http://localhost:5000/api/parks/
+GET http://localhost:5000/api/parks/{id}
+POST http://localhost:5000/api/parks/
+PUT http://localhost:5000/api/parks/{id}
+DELETE http://localhost:5000/api/parks/{id}
+```
+
+### States
+```
+GET http://localhost:5000/api/states/
+GET http://localhost:5000/api/states/{id}
+POST http://localhost:5000/api/states/
+PUT http://localhost:5000/api/states/{id}
+DELETE http://localhost:5000/api/states/{id}
+```
+
+Note: `{id}` is a variable, replace it with the id number of the State/Park you want to GET, PUT, or DELETE.
 
 #### Optional Query String Parameters for GET Requests
 
@@ -162,7 +165,7 @@ The following query will return all states with the Id of 1:
 GET http://localhost:5000/api/states/1
 ```
 
-#### Additional Requirements for POST Request
+### Additional Requirements for POST Request
 
 When making a POST request to `http://localhost:5000/api/states/` or `http://localhost:5000/api/parks/`, you need to include a **body**. Here's an example body in JSON:
 
@@ -183,7 +186,7 @@ When making a PUT request to `http://localhost:5000/api/states/{id}` or `http://
 ```
 
 ## Cross-Origin Requests
-If you would like to enable additional CORS policies and attributes go _[here](https://learn.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-6.0)_
+If you would like to enable additional CORS policies and attributes go _[here](https://learn.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-6.0)_ for instructions and options.
 
 ## Known Bugs
 
